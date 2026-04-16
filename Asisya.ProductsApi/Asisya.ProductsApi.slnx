@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="../Asisya.Application/Asisya.Application.csproj" />
+  <Project Path="../Asisya.Domain/Asisya.Domain.csproj" />
+  <Project Path="../Asisya.Infrastructure/Asisya.Infrastructure.csproj" />
+  <Project Path="../Asisya.Tests/Asisya.Tests.csproj" Id="8c4ede90-5700-4253-88c1-f6b16567153d" />
+  <Project Path="Asisya.ProductsApi.csproj" />
+</Solution>
