@@ -127,7 +127,7 @@ namespace Asisya.Api.Controllers
             [FromQuery] Guid categoryId,
             [FromQuery] Guid supplierId)
         {
-            const int total = 100000;
+            const int total = 10;
             const int batchSize = 5000;
 
             _context.ChangeTracker.AutoDetectChangesEnabled = false;
