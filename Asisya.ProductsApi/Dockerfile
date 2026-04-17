@@ -3,7 +3,10 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet restore
+RUN dotnet restore Asisya.ProductsApi/Asisya.ProductsApi.csproj
+
+RUN dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj -c Release
+
 RUN dotnet publish Asisya.ProductsApi/Asisya.ProductsApi.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
