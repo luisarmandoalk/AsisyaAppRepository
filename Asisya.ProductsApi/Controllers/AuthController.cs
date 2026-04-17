@@ -1,34 +1,12 @@
-﻿using Asisya.Application.DTOs;
-using Asisya.Infrastructure.Security;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Asisya.Api.Controllers
+﻿[HttpPost("login")]
+public IActionResult Login([FromBody] LoginDto dto)
 {
-    [ApiController]
-    [Route("api/auth")]
-    public class AuthController : ControllerBase
+    if (dto.Username == "admin" && dto.Password == "123")
     {
-        private readonly JwtService _jwtService;
+        var token = _jwtService.GenerateToken(dto.Username);
 
-        public AuthController(JwtService jwtService)
-        {
-            _jwtService = jwtService;
-        }
-
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDto dto)
-        {
-            if (dto.Username == "admin" && dto.Password == "123")
-            {
-                return Ok(new { token = "TOKEN_OK" });
-            }
-
-            return Unauthorized();
-        }
+        return Ok(new { token });
     }
 
-    public class LoginRequest
-    {
-        public string User { get; set; }
-    }
+    return Unauthorized();
 }
