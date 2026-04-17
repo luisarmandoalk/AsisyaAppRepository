@@ -4,11 +4,11 @@ WORKDIR /src
 COPY . .
 
 RUN dotnet restore
-RUN dotnet publish Asisya.Api/Asisya.Api.csproj -c Release -o /app/publish
+RUN dotnet publish Asisya.ProductsApi/Asisya.ProductsApi.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "Asisya.Api.dll"]
+ENTRYPOINT ["dotnet", "Asisya.ProductsApi.dll"]
