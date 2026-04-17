@@ -84,16 +84,24 @@ namespace Asisya.Infrastructure.Persistence
                 new Category
                 {
                     CategoryId = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-                    CategoryName = "Electronics",
-                    Picture = "img1"
-                },
-                new Category
-                {
-                    CategoryId = Guid.Parse("22222222-2222-2222-2222-222222222222"),
-                    CategoryName = "Clothing",
-                    Picture = "img2"
-                }
+                    CategoryName = "Electronica",
+                    Description = "Electronica general",
+                    Picture = "URL de imagen"
+                }               
             );
+
+            modelBuilder.Entity<Supplier>().HasData(
+            new Supplier
+            {
+                SupplierId = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
+                CompanyName = "IBM",
+                ContactName = "Juan Perez",
+                Adress = "Calle 85",
+                City = "Bogota",
+                Country = "Colombia",
+                Phone = "32011145774"
+            }            
+        );
         }
 
         //  Auditoría automática

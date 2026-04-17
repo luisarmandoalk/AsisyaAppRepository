@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function ProductForm() {
   const navigate = useNavigate();
-  const { id } = useParams(); // ?? detecta edición
+  const { id } = useParams(); 
 
   const [form, setForm] = useState({
     productName: "",
@@ -15,7 +15,7 @@ export default function ProductForm() {
 
   const [errors, setErrors] = useState({});
 
-  // ?? CARGAR PRODUCTO (EDIT)
+  //  CARGAR PRODUCTO (EDIT)
   useEffect(() => {
     if (id) {
       api.get(`/product/${id}`).then(res => {
@@ -24,7 +24,7 @@ export default function ProductForm() {
     }
   }, [id]);
 
-  // ?? CAMBIOS
+  //  CAMBIOS
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -32,7 +32,7 @@ export default function ProductForm() {
     });
   };
 
-  // ? VALIDACIÓN
+  // VALIDACIÓN
   const validate = () => {
     let err = {};
 
@@ -52,7 +52,7 @@ export default function ProductForm() {
     return Object.keys(err).length === 0;
   };
 
-  // ?? GUARDAR
+  // GUARDAR
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -61,7 +61,7 @@ export default function ProductForm() {
     try {
       const payload = {
         ...form,
-        unitPrice: Number(form.unitPrice) // ?? FIX importante
+        unitPrice: Number(form.unitPrice) 
       };
 
       if (id) {

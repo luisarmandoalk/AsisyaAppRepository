@@ -9,48 +9,53 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const login = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const res = await api.post("/auth/login", {
-        username,
-        password
-      });
+  try {
+    const res = await api.post("/auth/login", {
+      username,
+      password
+    });
 
-      // guardar token
-      localStorage.setItem("token", res.data.token);
+    console.log(res.data); // ?? AQUÍ
 
-      alert("Login OK");
+    localStorage.setItem("token", res.data.token);
 
-      // ?? redirigir a productos
-      navigate("/products");
+	setTimeout(() => {
+	  navigate("/products", { replace: true });
+	}, 50);
 
-    } catch (err) {
-      alert("Error login");
-      console.log(err);
-    }
-  };
+    alert("Login OK");
+    navigate("/products");
+
+  } catch (err) {
+    alert("Error login");
+    console.log(err);
+  }
+};
 
   return (
     <div>
-      <h2>Login</h2>
+  <h1 style={{ fontWeight: "bold" }}>ASISYA SYSTEM</h1>
 
-      <form onSubmit={login}>
-        <input
-          placeholder="user"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+  <h2>Login</h2>
 
-        <input
-          type="password"
-          placeholder="pass"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+  <form onSubmit={login}>
+    <input
+      placeholder="user"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+    />
 
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  );
+    <input
+      type="password"
+      placeholder="pass"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+
+    <button type="submit">Login</button>
+  </form>
+</div>
+);
 }

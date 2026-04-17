@@ -1,19 +1,24 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "../pages/Login";
-import Products from "../pages/Products";       
-import ProductForm from "../pages/ProductForm"; 
+import Products from "../pages/Products";
+import ProductForm from "../pages/ProductForm";
+import Categories from "../pages/Categories"; 
+import CategoryForm from "../pages/CategoryForm";
+
 import AuthGuard from "../auth/AuthGuard";
 
 export default function AppRouter() {
+
   return (
     <Routes>
       {/* Default */}
       <Route path="/" element={<Navigate to="/login" />} />
 
-      {/* Login */}
+      {/* LOGIN */}
       <Route path="/login" element={<Login />} />
 
-      {/* LISTADO */}
+      {/* PRODUCTS */}
       <Route
         path="/products"
         element={
@@ -23,7 +28,7 @@ export default function AppRouter() {
         }
       />
 
-      {/* CREATE */}
+      {/* CREATE PRODUCT */}
       <Route
         path="/products/new"
         element={
@@ -33,12 +38,39 @@ export default function AppRouter() {
         }
       />
 
-      {/* EDIT */}
+      {/* EDIT PRODUCT */}
       <Route
         path="/products/edit/:id"
         element={
           <AuthGuard>
             <ProductForm />
+          </AuthGuard>
+        }
+      />
+
+      {/* CATEGORIES ?? NUEVO */}
+		<Route
+	  path="/categories"
+	  element={
+		<AuthGuard>
+		  <Categories />
+		</AuthGuard>
+	  }
+	/>
+		
+		<Route
+	  path="/categories/new"
+	  element={
+		<AuthGuard>
+		  <CategoryForm />
+		</AuthGuard>
+	  }
+	/>
+	 <Route
+        path="/categories/edit/:id"
+        element={
+          <AuthGuard>
+            <CategoryForm />
           </AuthGuard>
         }
       />

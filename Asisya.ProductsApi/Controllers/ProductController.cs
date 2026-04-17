@@ -2,6 +2,7 @@
 using Asisya.Domain.Entities;
 using Asisya.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Asisya.Api.Controllers
 {
@@ -46,24 +47,50 @@ namespace Asisya.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(int page = 1, int pageSize = 20)
-        {
-            var total = _context.Products.Count();
+         public IActionResult GetAll(
 
-            var products = _context.Products
-                .OrderBy(p => p.ProductName)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+         int page = 1,
+         int pageSize = 20,
+         string search = "",
+         decimal? minPrice = null,
+         decimal? maxPrice = null)
+            {
+                var query = _context.Products.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search))
+                    query = query.Where(p => p.ProductName.Contains(search));
+
+                if (minPrice.HasValue)
+                    query = query.Where(p => p.UnitPrice >= minPrice.Value);
+
+                if (maxPrice.HasValue)
+                    query = query.Where(p => p.UnitPrice <= maxPrice.Value);
+
+                var total = query.Count();
+
+            var products = query
+    .Include(p => p.Category)
+    .OrderBy(p => p.ProductName)
+    .Skip((page - 1) * pageSize)
+    .Take(pageSize)
+    .Select(p => new
+    {
+        p.Id,
+        p.ProductName,
+        p.UnitPrice,
+        CategoryName = p.Category.CategoryName,
+        CategoryImageUrl = p.Category.Picture
+    })
+    .ToList();
 
             return Ok(new
-            {
-                total,
-                page,
-                pageSize,
-                data = products
-            });
-        }
+                {
+                    total,
+                    page,
+                    pageSize,
+                    data = products
+                });
+            }
         // 
         // CREATE PRODUCT
         // 
