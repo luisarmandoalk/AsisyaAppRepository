@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Asisya.Application.DTOs;
+using Asisya.ProductsApi.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Asisya.Application.DTOs;
 
 namespace Asisya.Application.Interfaces
 {
@@ -11,14 +12,14 @@ namespace Asisya.Application.Interfaces
     {
         Task GenerateMassiveProducts(int amount);
 
-        Task<List<ProductDto>> GetAll(int page, int pageSize, string search);
+        Task<List<ProductDto>> GetAll(ProductFilter filter);
 
-        Task<ProductDto> GetById(int id);
+        Task<ProductDto> GetById(Guid id);
 
         Task<ProductDto> Create(CreateProductDto dto);
 
-        Task Update(int id, CreateProductDto dto);
+        Task Update(Guid id, CreateProductDto dto);
 
-        Task Delete(int id);
+        Task Delete(Guid id);
     }
 }

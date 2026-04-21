@@ -46,10 +46,6 @@ namespace Asisya.Infrastructure.Repositories
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
         }
-
-        public Task<Category> GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+               
     }
 }

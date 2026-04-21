@@ -70,10 +70,6 @@ namespace Asisya.Infrastructure.Repositories
             await _context.Products.AddRangeAsync(products);
             await _context.SaveChangesAsync();
         }
-
-        public Task Delete(Product product)
-        {
-            throw new NotImplementedException();
-        }
+                
     }
 }

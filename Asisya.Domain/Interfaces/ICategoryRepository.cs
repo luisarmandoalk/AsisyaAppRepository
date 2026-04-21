@@ -11,7 +11,7 @@ namespace Asisya.Domain.Interfaces
     {
         Task<List<Category>> GetAll();
 
-        Task<Category> GetById(int id);
+        Task<Category> GetById(Guid id);
 
         Task<Category> Create(Category category);
 

@@ -52,7 +52,7 @@ namespace Asisya.Api.Middleware
             }
             catch
             {
-                // Token inválido → no hace nada
+                // Token inválido  no hace nada
             }
         }
     }

@@ -17,7 +17,7 @@ export default function Login() {
       password
     });
 
-    console.log(res.data); // ?? AQUÍ
+    console.log(res.data); // 
 
     localStorage.setItem("token", res.data.token);
 

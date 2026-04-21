@@ -20,6 +20,6 @@ namespace Asisya.Domain.Interfaces
 
         Task Update(Product product);
 
-        Task Delete(Product product);
+        Task Delete(Guid id);
     }
 }

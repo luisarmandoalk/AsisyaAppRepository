@@ -69,19 +69,19 @@ namespace Asisya.Api.Controllers
                 var total = query.Count();
 
             var products = query
-    .Include(p => p.Category)
-    .OrderBy(p => p.ProductName)
-    .Skip((page - 1) * pageSize)
-    .Take(pageSize)
-    .Select(p => new
-    {
-        p.Id,
-        p.ProductName,
-        p.UnitPrice,
-        CategoryName = p.Category.CategoryName,
-        CategoryImageUrl = p.Category.Picture
-    })
-    .ToList();
+            .Include(p => p.Category)
+            .OrderBy(p => p.ProductName)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(p => new
+            {
+                p.Id,
+                p.ProductName,
+                p.UnitPrice,
+                CategoryName = p.Category.CategoryName,
+                CategoryImageUrl = p.Category.Picture
+            })
+            .ToList();
 
             return Ok(new
                 {
@@ -171,7 +171,7 @@ namespace Asisya.Api.Controllers
         }
 
         
-        // BULK INSERT importar desde cvs
+        // BULK INSERT insercion masiva con json
         // 
         [HttpPost("bulk")]
         public async Task<IActionResult> BulkInsert([FromBody] List<CreateProductDto> dtos)

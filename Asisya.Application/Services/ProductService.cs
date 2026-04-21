@@ -92,27 +92,9 @@ namespace Asisya.Application.Services
             if (product == null)
                 throw new Exception("Producto no encontrado");
 
-            await _repo.Delete(product);
+            await _repo.Delete(id);
         }
 
-        public Task<List<ProductDto>> GetAll(int page, int pageSize, string search)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(int id, CreateProductDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ProductDto> GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }
