@@ -1,4 +1,5 @@
-﻿using Asisya.Application.DTOs;
+﻿using Asisya.Application.BackgroundJobs;
+using Asisya.Application.DTOs;
 using Asisya.Domain.Entities;
 using Asisya.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -123,54 +124,16 @@ namespace Asisya.Api.Controllers
         // GENERATE 100K PRODUCTS
         // =========================
         [HttpPost("generate")]
-        public async Task<IActionResult> Generate(
-            [FromQuery] Guid categoryId,
-            [FromQuery] Guid supplierId)
+        public IActionResult Generate(Guid categoryId, Guid supplierId)
         {
-            const int total = 100000;
-            const int batchSize = 5000;
+            ProductJobQueue.Enqueue(categoryId, supplierId);
 
-            _context.ChangeTracker.AutoDetectChangesEnabled = false;
-
-            try
+            return Accepted(new
             {
-                for (int i = 1; i <= total; i += batchSize)
-                {
-                    var batch = new List<Product>(batchSize);
-
-                    for (int j = 0; j < batchSize && (i + j) <= total; j++)
-                    {
-                        batch.Add(new Product
-                        {
-                            Id = Guid.NewGuid(),
-                            ProductName = $"Product {i + j}",
-                            UnitPrice = (i + j) % 1000,
-                            CategoryId = categoryId,
-                            SupplierId = supplierId
-                        });
-                    }
-
-                    await _context.Products.AddRangeAsync(batch);
-                    await _context.SaveChangesAsync();
-                }
-
-                return Ok(new { inserted = total });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    message = ex.Message,
-                    inner = ex.InnerException?.Message
-                });
-            }
-            finally
-            {
-                _context.ChangeTracker.AutoDetectChangesEnabled = true;
-            }
+                message = "Job encolado"
+            });
         }
 
-        
         // BULK INSERT insercion masiva con json
         // 
         [HttpPost("bulk")]

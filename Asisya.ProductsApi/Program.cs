@@ -1,15 +1,17 @@
 using Asisya.Api.Filters;
 using Asisya.Application.Interfaces;
+using Asisya.Application.Interfaces.Asisya.Application.Interfaces;
+using Asisya.Application.Mappings;
 using Asisya.Application.Services;
 using Asisya.Domain;
 using Asisya.Domain.Interfaces;
+using Asisya.Infrastructure.BackgroundServices;
 using Asisya.Infrastructure.Persistence;
 using Asisya.Infrastructure.Repositories;
 using Asisya.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Asisya.Application.Mappings;
 
 
 
@@ -94,6 +96,9 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddHostedService<ProductGeneratorWorker>();
+builder.Services.AddScoped<IProductJobService, ProductJobService>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -101,6 +106,7 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }
+
 
 app.UseCors("AllowAll");
 
