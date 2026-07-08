@@ -44,10 +44,10 @@ namespace Asisya.Application.Services
 
         public async Task<List<ProductDto>> GetAll(ProductFilter filter)
         {
-            var data = await _repo.GetAll(filter.Page, filter.PageSize, filter.Search);
+            var data = await _repo.GetAll(filter.Page, filter.PageSize, filter.Search, filter.categoryName);
 
-            if (!string.IsNullOrEmpty(filter.Category))
-                data = data.Where(x => x.Category.CategoryName == filter.Category).ToList();           
+            if (!string.IsNullOrEmpty(filter.categoryName))
+                data = data.Where(x => x.Category.CategoryName == filter.categoryName).ToList();           
 
             return _mapper.Map<List<ProductDto>>(data);
         }

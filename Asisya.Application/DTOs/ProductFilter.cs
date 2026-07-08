@@ -8,7 +8,7 @@
 
         public string Search { get; set; } = string.Empty;
 
-        public string Category { get; set; } = string.Empty;
+        public string categoryName { get; set; } = string.Empty;
 
         public decimal? MinPrice { get; set; }
 

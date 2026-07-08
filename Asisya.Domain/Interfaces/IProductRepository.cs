@@ -12,7 +12,7 @@ namespace Asisya.Domain.Interfaces
     {
         Task BulkInsert(List<Product> products);
 
-        Task<List<Product>> GetAll(int page, int pageSize, string search);
+        Task<List<Product>> GetAll(int page, int pageSize, string search, string categoryName);
 
         Task<Product> GetById(Guid id);
 

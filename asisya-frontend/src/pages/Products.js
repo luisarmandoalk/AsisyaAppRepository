@@ -11,6 +11,7 @@ export default function Products() {
   const [search, setSearch] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [categoryName, setcategoryName] = useState("");
 
   const pageSize = 20;
   const navigate = useNavigate();
@@ -23,7 +24,8 @@ export default function Products() {
           pageSize,
           search,
           minPrice,
-          maxPrice
+          maxPrice,
+		  categoryName
         }
       });
 
@@ -54,6 +56,12 @@ export default function Products() {
           placeholder="Buscar por nombre"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+        />
+		
+		 <input
+          placeholder="Buscar por categoria"
+          value={categoryName}
+          onChange={(e) => setcategoryName(e.target.value)}
         />
 
         <input

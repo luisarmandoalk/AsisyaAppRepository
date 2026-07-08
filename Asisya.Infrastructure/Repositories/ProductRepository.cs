@@ -14,7 +14,7 @@ namespace Asisya.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<List<Product>> GetAll(int page, int pageSize, string search)
+        public async Task<List<Product>> GetAll(int page, int pageSize, string search, string categoryName)
         {
             var query = _context.Products
                 .Include(x => x.Category)
@@ -23,6 +23,9 @@ namespace Asisya.Infrastructure.Repositories
 
             if (!string.IsNullOrWhiteSpace(search))
                 query = query.Where(x => x.ProductName.Contains(search));
+
+            if (!string.IsNullOrWhiteSpace(categoryName))
+                query = query.Where(x => x.Category.CategoryName.Contains(categoryName));
 
             return await query
                 .AsNoTracking()

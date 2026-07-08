@@ -40,7 +40,7 @@ namespace Asisya.Infrastructure.BackgroundServices
 
         private async Task GenerateProducts(AppDbContext db, Guid categoryId, Guid supplierId)
         {
-            const int total = 5;
+            const int total = 100000;
             const int batchSize = 5000;
 
             for (int i = 0; i < total; i += batchSize)

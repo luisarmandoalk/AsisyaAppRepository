@@ -15,6 +15,7 @@ namespace Asisya.Domain.Entities
         public Guid CategoryId { get; set; }
         public Category Category { get; set; } = null!;
 
+
         public Guid SupplierId { get; set; }
         public Supplier Supplier { get; set; } = new Supplier();
 

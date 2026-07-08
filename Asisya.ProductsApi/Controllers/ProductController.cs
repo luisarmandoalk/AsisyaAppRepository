@@ -53,6 +53,7 @@ namespace Asisya.Api.Controllers
          int page = 1,
          int pageSize = 20,
          string search = "",
+         string categoryName = "",
          decimal? minPrice = null,
          decimal? maxPrice = null)
             {
@@ -67,7 +68,10 @@ namespace Asisya.Api.Controllers
                 if (maxPrice.HasValue)
                     query = query.Where(p => p.UnitPrice <= maxPrice.Value);
 
-                var total = query.Count();
+            if (!string.IsNullOrEmpty(categoryName))
+                query = query.Where(p => p.Category.CategoryName.Contains(categoryName));
+
+            var total = query.Count();
 
             var products = query
             .Include(p => p.Category)
