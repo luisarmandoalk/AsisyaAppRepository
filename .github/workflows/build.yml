@@ -54,7 +54,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin `
-            /k:"TU_PROJECT_KEY" `
+            /k:"luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91" `
             /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" `
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           dotnet build Asisya.ProductsApi.csproj --configuration Release
