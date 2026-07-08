@@ -55,8 +55,7 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin `
             /k:"TU_PROJECT_KEY" `
-            /o:"TU_ORGANIZACION" `
             /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" `
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-          dotnet build Asisya.ProductsApi.csproj
+          dotnet build Asisya.ProductsApi.csproj --configuration Release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
