@@ -22,13 +22,13 @@ jobs:
           dotnet-version: '8.0.x'   # Ajusta según tu versión
 
       - name: Restore dependencies
-        run: dotnet restore Asisya.ProductsApi.csproj
+        run: dotnet restore Asisya.ProductsApi/Asisya.ProductsApi.csproj
 
       - name: Build
-        run: dotnet build Asisya.ProductsApi.csproj --no-restore --configuration Release
+        run: dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test Asisya.ProductsApi.csproj --no-build --configuration Release --verbosity normal
+        run: dotnet test Asisya.ProductsApi/Asisya.ProductsApi.csproj --no-build --configuration Release --verbosity normal
 
       - name: SonarQube Scan
         env:
@@ -39,5 +39,5 @@ jobs:
             /k:"Asisya.ProductsApi" \
             /d:sonar.host.url="https://sonarcloud.io" \
             /d:sonar.login="${SONAR_TOKEN}"
-          dotnet build Asisya.ProductsApi.csproj --configuration Release
+          dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj --configuration Release
           dotnet sonarscanner end /d:sonar.login="${SONAR_TOKEN}"
