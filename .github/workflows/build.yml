@@ -10,6 +10,10 @@ jobs:
     name: Build and analyze
     runs-on: windows-latest
     
+    defaults:
+      run:
+        working-directory: Asisya.ProductsApi
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -46,6 +50,6 @@ jobs:
       - name: Build and analyze
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.working.directory="$env:GITHUB_WORKSPACE\.sonarqube"
-          dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          dotnet build Asisya.ProductsApi.csproj
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
