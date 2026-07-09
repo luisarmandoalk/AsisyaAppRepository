@@ -36,8 +36,7 @@ jobs:
       - name: Build and analyze
         shell: powershell
         run: |
-          cd Asisya.ProductsApi
           dotnet sonarscanner begin /k:"luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-          dotnet restore Asisya.ProductsApi.csproj
-          dotnet build Asisya.ProductsApi.csproj --no-restore /t:Rebuild /p:UseSharedCompilation=false /p:HasSharedItems=false
+          dotnet restore Asisya.ProductsApi/Asisya.ProductsApi.csproj
+          dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj --no-restore /t:Rebuild /p:UseSharedCompilation=false /p:HasSharedItems=false
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
