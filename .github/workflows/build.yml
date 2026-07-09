@@ -28,12 +28,19 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Inicializar, Compilar y Analizar con SonarQube
-        uses: highbyte/sonarscanner-dotnet-github-action@v1.3.0
-        with:
-          sonarProjectKey: luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91
-          sonarHostname: ${{ secrets.SONAR_HOST_URL }}
-          dotnetBuildCommand: dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj /t:Rebuild /p:UseSharedCompilation=false /p:HasSharedItems=false
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Ejecutar Analisis Completo
+        shell: powershell
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          
+          # Agregar la ruta de herramientas globales al ambiente actual de PowerShell
+          $env:PATH = "$env:USERPROFILE\.dotnet\tools;$env:PATH"
+          
+          # Iniciar el escáner desde la raíz global
+          dotnet sonarscanner begin /k:"luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          
+          # Compilar forzando que los archivos temporales se guarden en la raíz global compartida
+          dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj /t:Rebuild /p:UseSharedCompilation=false /p:HasSharedItems=false /p:SonarQubeTargetsFilePath="$env:GITHUB_WORKSPACE\.sonarqube\bin\targets"
+          
+          # Finalizar el escáner leyendo la raíz global unificada
+          dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
