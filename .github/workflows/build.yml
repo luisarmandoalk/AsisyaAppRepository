@@ -36,6 +36,6 @@ jobs:
       - name: Build and analyze
         shell: powershell
         run: |
-          dotnet sonarscanner begin /k:"luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          dotnet sonarscanner begin /k:"luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.working.directory="$env:GITHUB_WORKSPACE\.sonarqube"
           dotnet build Asisya.ProductsApi/Asisya.ProductsApi.slnx /p:UseSharedCompilation=false /p:HasSharedItems=false
-          dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.working.directory="$env:GITHUB_WORKSPACE\.sonarqube"
