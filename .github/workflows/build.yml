@@ -28,22 +28,12 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Inicializar SonarQube Scanner
-        uses: SonarSource/sonarqube-scan-action@v4
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Inicializar, Compilar y Analizar con SonarQube
+        uses: highbyte/sonarscanner-dotnet-github-action@v1.3.0
         with:
-          args: >
-            -Dsonar.projectKey=luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91
-
-      - name: Compilar Proyecto .NET
-        shell: powershell
-        run: |
-          dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj /t:Rebuild /p:UseSharedCompilation=false /p:HasSharedItems=false
-
-      - name: Finalizar y Enviar Reporte a SonarQube
-        uses: SonarSource/sonarqube-scan-action@v4
+          sonarProjectKey: luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91
+          sonarHostname: ${{ secrets.SONAR_HOST_URL }}
+          dotnetBuildCommand: dotnet build Asisya.ProductsApi/Asisya.ProductsApi.csproj /t:Rebuild /p:UseSharedCompilation=false /p:HasSharedItems=false
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
