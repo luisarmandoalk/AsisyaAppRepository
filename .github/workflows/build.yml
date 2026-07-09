@@ -37,5 +37,5 @@ jobs:
         shell: powershell
         run: |
           dotnet sonarscanner begin /k:"luisarmandoalk_AsisyaAppRepository_dec8602d-4616-46b5-b5de-e5766fac0b91" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-          dotnet build AsisyaAppRepository/Asisya.ProductsApi/Asisya.ProductsApi.csproj
+          dotnet build Asisya.ProductsApi/Asisya.ProductsApi.slnx
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
